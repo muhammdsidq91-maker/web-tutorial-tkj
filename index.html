@@ -1,0 +1,1742 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TKJ Academy — Tutorial Teknik Komputer & Jaringan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0e1a;
+  --bg2: #0f1628;
+  --bg3: #161d35;
+  --surface: #1a2240;
+  --border: #2a3558;
+  --accent: #00e5ff;
+  --accent2: #7c3aed;
+  --accent3: #f59e0b;
+  --text: #e8eaf2;
+  --text2: #8892b0;
+  --text3: #4a5568;
+  --green: #10b981;
+  --red: #ef4444;
+  --mono: 'Space Mono', monospace;
+  --sans: 'Syne', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  overflow-x: hidden;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent2); border-radius: 2px; }
+
+/* ── Noise overlay ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+/* ── Nav ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 48px;
+  background: rgba(10,14,26,0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: var(--mono);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-logo span { color: var(--text2); font-weight: 400; }
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--text2);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--accent); }
+
+.nav-cta {
+  background: var(--accent);
+  color: var(--bg) !important;
+  padding: 8px 20px;
+  border-radius: 4px;
+  font-weight: 700 !important;
+}
+
+.nav-cta:hover { background: #00b8d4 !important; color: var(--bg) !important; }
+
+/* ── Hero ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 120px 48px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,229,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,229,255,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at 60% 40%, black 30%, transparent 80%);
+}
+
+.hero-glow {
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(124,58,237,0.25) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-glow2 {
+  position: absolute;
+  bottom: -50px; left: 200px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(0,229,255,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0,229,255,0.08);
+  border: 1px solid rgba(0,229,255,0.25);
+  border-radius: 2px;
+  padding: 6px 14px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent);
+  margin-bottom: 28px;
+  animation: fadeUp 0.6s ease both;
+}
+
+.hero-badge::before { content: '▶'; font-size: 10px; }
+
+.hero-title {
+  font-size: clamp(44px, 7vw, 80px);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+  animation: fadeUp 0.6s 0.1s ease both;
+}
+
+.hero-title .line1 { display: block; color: var(--text); }
+.hero-title .line2 { display: block; color: var(--accent); }
+.hero-title .line3 { display: block; color: var(--text2); }
+
+.hero-desc {
+  font-size: 18px;
+  color: var(--text2);
+  line-height: 1.7;
+  max-width: 560px;
+  margin-bottom: 40px;
+  font-family: var(--mono);
+  animation: fadeUp 0.6s 0.2s ease both;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  padding: 14px 32px;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-primary:hover { background: #00b8d4; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,229,255,0.3); }
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 14px 32px;
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+.hero-stats {
+  display: flex;
+  gap: 48px;
+  margin-top: 64px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+  animation: fadeUp 0.6s 0.4s ease both;
+}
+
+.hero-stat-num {
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--accent);
+  font-family: var(--mono);
+}
+
+.hero-stat-label {
+  font-size: 13px;
+  color: var(--text2);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 4px;
+}
+
+/* ── Terminal block ── */
+.terminal {
+  position: absolute;
+  right: 48px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 420px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: var(--mono);
+  font-size: 13px;
+  animation: fadeUp 0.7s 0.3s ease both;
+  z-index: 1;
+}
+
+.terminal-bar {
+  background: var(--bg3);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.dot { width: 11px; height: 11px; border-radius: 50%; }
+.dot-r { background: #ef4444; }
+.dot-y { background: #f59e0b; }
+.dot-g { background: #10b981; }
+.terminal-title { color: var(--text3); font-size: 12px; margin-left: 8px; }
+
+.terminal-body { padding: 20px; line-height: 2; }
+.t-prompt { color: var(--accent); }
+.t-cmd { color: var(--text); }
+.t-output { color: var(--text2); }
+.t-green { color: var(--green); }
+.t-yellow { color: var(--accent3); }
+.t-comment { color: var(--text3); }
+.t-cursor {
+  display: inline-block;
+  width: 9px; height: 14px;
+  background: var(--accent);
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+  vertical-align: text-bottom;
+}
+
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+
+/* ── Section ── */
+section {
+  padding: 100px 48px;
+  position: relative;
+}
+
+.section-label {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-label::before { content: '//'; color: var(--text3); }
+
+.section-title {
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.section-desc {
+  font-size: 16px;
+  color: var(--text2);
+  max-width: 560px;
+  line-height: 1.7;
+  font-family: var(--mono);
+}
+
+/* ── Topics Grid ── */
+.topics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 56px;
+}
+
+.topic-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 28px;
+  cursor: pointer;
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.topic-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.topic-card:hover { transform: translateY(-4px); border-color: var(--accent); }
+.topic-card:hover::before { opacity: 1; }
+
+.topic-card.net::before { background: linear-gradient(135deg, rgba(0,229,255,0.06) 0%, transparent 60%); }
+.topic-card.sec::before { background: linear-gradient(135deg, rgba(239,68,68,0.06) 0%, transparent 60%); }
+.topic-card.sys::before { background: linear-gradient(135deg, rgba(16,185,129,0.06) 0%, transparent 60%); }
+.topic-card.dev::before { background: linear-gradient(135deg, rgba(124,58,237,0.06) 0%, transparent 60%); }
+.topic-card.hw::before { background: linear-gradient(135deg, rgba(245,158,11,0.06) 0%, transparent 60%); }
+
+.topic-icon {
+  width: 44px; height: 44px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.topic-icon.net { background: rgba(0,229,255,0.1); }
+.topic-icon.sec { background: rgba(239,68,68,0.1); }
+.topic-icon.sys { background: rgba(16,185,129,0.1); }
+.topic-icon.dev { background: rgba(124,58,237,0.1); }
+.topic-icon.hw { background: rgba(245,158,11,0.1); }
+
+.topic-name {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.topic-desc {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.6;
+  font-family: var(--mono);
+  margin-bottom: 20px;
+}
+
+.topic-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 2px;
+  border: 1px solid var(--border);
+  color: var(--text3);
+}
+
+.topic-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text3);
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
+
+.topic-lessons { color: var(--accent); font-weight: 700; }
+
+/* ── Tutorial Content Area ── */
+#tutorial-area {
+  display: none;
+  margin-top: 56px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tutorial-header {
+  padding: 24px 32px;
+  background: var(--bg3);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tutorial-header h2 { font-size: 20px; font-weight: 700; }
+.tutorial-close {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text2);
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 12px;
+  transition: all 0.2s;
+}
+.tutorial-close:hover { border-color: var(--red); color: var(--red); }
+
+.tutorial-body {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+}
+
+.tutorial-sidebar {
+  border-right: 1px solid var(--border);
+  padding: 24px 0;
+}
+
+.sidebar-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0 20px;
+  margin-bottom: 12px;
+}
+
+.sidebar-item {
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text2);
+  transition: all 0.15s;
+  border-left: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar-item:hover { background: var(--bg3); color: var(--text); }
+.sidebar-item.active { border-left-color: var(--accent); color: var(--accent); background: rgba(0,229,255,0.05); }
+.sidebar-item .num { font-family: var(--mono); font-size: 11px; color: var(--text3); min-width: 22px; }
+
+.tutorial-content {
+  padding: 40px;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.tutorial-content h3 {
+  font-size: 26px;
+  font-weight: 800;
+  margin-bottom: 16px;
+  color: var(--accent);
+}
+
+.tutorial-content p {
+  font-size: 14px;
+  color: var(--text2);
+  line-height: 1.8;
+  margin-bottom: 20px;
+  font-family: var(--mono);
+}
+
+.tutorial-content h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 28px 0 12px;
+  color: var(--text);
+}
+
+.code-block {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 16px 0 24px;
+}
+
+.code-header {
+  background: var(--bg3);
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+
+.code-lang { font-family: var(--mono); font-size: 11px; color: var(--accent); }
+.code-copy {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text3);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.code-copy:hover { color: var(--accent); }
+
+.code-body {
+  padding: 16px;
+  font-family: var(--mono);
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--text2);
+  overflow-x: auto;
+}
+
+.code-body .kw { color: var(--accent2); }
+.code-body .str { color: var(--green); }
+.code-body .num { color: var(--accent3); }
+.code-body .cmt { color: var(--text3); font-style: italic; }
+.code-body .fn { color: var(--accent); }
+.code-body .var { color: #f97316; }
+
+.info-box {
+  border-left: 3px solid var(--accent);
+  background: rgba(0,229,255,0.05);
+  border-radius: 0 6px 6px 0;
+  padding: 14px 18px;
+  margin: 16px 0;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--text2);
+}
+
+.info-box.warn { border-color: var(--accent3); background: rgba(245,158,11,0.05); }
+.info-box.danger { border-color: var(--red); background: rgba(239,68,68,0.05); }
+
+.tutorial-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+/* ── Quiz section ── */
+.quiz-box {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 28px;
+  margin-top: 32px;
+}
+
+.quiz-box h4 { font-size: 16px; margin-bottom: 20px; color: var(--accent3); }
+
+.quiz-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--text2);
+  transition: all 0.15s;
+}
+
+.quiz-option:hover { border-color: var(--accent); color: var(--text); }
+.quiz-option.correct { border-color: var(--green); color: var(--green); background: rgba(16,185,129,0.08); }
+.quiz-option.wrong { border-color: var(--red); color: var(--red); background: rgba(239,68,68,0.08); }
+
+/* ── Progress section ── */
+#progress-section { background: var(--bg2); }
+
+.progress-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 48px;
+}
+
+.progress-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px;
+}
+
+.progress-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+.progress-sub { font-family: var(--mono); font-size: 11px; color: var(--text3); margin-bottom: 16px; }
+
+.progress-bar-track {
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.progress-pct {
+  font-family: var(--mono);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+
+/* ── Tools section ── */
+.tools-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 48px;
+}
+
+.tool-item {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  transition: border-color 0.2s;
+}
+
+.tool-item:hover { border-color: var(--accent); }
+
+.tool-logo {
+  width: 40px; height: 40px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+  background: var(--surface);
+}
+
+.tool-name { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+.tool-desc { font-family: var(--mono); font-size: 12px; color: var(--text2); line-height: 1.5; }
+.tool-badge {
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 2px;
+  margin-top: 8px;
+  display: inline-block;
+}
+.tool-badge.free { background: rgba(16,185,129,0.12); color: var(--green); }
+.tool-badge.paid { background: rgba(245,158,11,0.12); color: var(--accent3); }
+
+/* ── Footer ── */
+footer {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  padding: 48px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 48px;
+}
+
+.footer-brand { grid-column: 1 / 2; }
+.footer-logo { font-family: var(--mono); font-size: 18px; color: var(--accent); font-weight: 700; margin-bottom: 12px; }
+.footer-tagline { font-family: var(--mono); font-size: 12px; color: var(--text3); line-height: 1.6; }
+.footer-col h4 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text3); margin-bottom: 16px; }
+.footer-col ul { list-style: none; }
+.footer-col ul li { margin-bottom: 10px; }
+.footer-col ul a { font-family: var(--mono); font-size: 13px; color: var(--text2); text-decoration: none; transition: color 0.2s; }
+.footer-col ul a:hover { color: var(--accent); }
+.footer-bottom {
+  border-top: 1px solid var(--border);
+  padding: 20px 48px;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text3);
+}
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── Search bar ── */
+.search-wrap {
+  margin-top: 48px;
+  position: relative;
+  max-width: 520px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text3);
+  font-size: 16px;
+}
+
+#search-input {
+  width: 100%;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 14px 16px 14px 44px;
+  font-family: var(--mono);
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+#search-input:focus { border-color: var(--accent); }
+#search-input::placeholder { color: var(--text3); }
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .terminal { display: none; }
+  .hero { padding: 120px 32px 80px; }
+  footer { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 640px) {
+  nav { padding: 14px 20px; }
+  .nav-links { display: none; }
+  section { padding: 60px 20px; }
+  .hero { padding: 100px 20px 60px; }
+  .hero-stats { gap: 24px; }
+  footer { grid-template-columns: 1fr; gap: 32px; padding: 32px 20px; }
+  .footer-bottom { padding: 16px 20px; flex-direction: column; gap: 8px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav>
+  <a class="nav-logo" href="#">TKJ<span>/</span>ACADEMY</a>
+  <ul class="nav-links">
+    <li><a href="#materi">Materi</a></li>
+    <li><a href="#progress-section">Progress</a></li>
+    <li><a href="#tools">Tools</a></li>
+    <li><a href="#materi" class="nav-cta">Mulai Belajar →</a></li>
+  </ul>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">Teknik Komputer & Jaringan</div>
+    <h1 class="hero-title">
+      <span class="line1">Kuasai</span>
+      <span class="line2">Jaringan &</span>
+      <span class="line3">Sistem.</span>
+    </h1>
+    <p class="hero-desc">
+      Tutorial lengkap TKJ — dari dasar networking, konfigurasi router, keamanan siber, hingga server Linux. Belajar dengan praktik nyata.
+    </p>
+    <div class="hero-actions">
+      <a href="#materi" class="btn-primary">Mulai Tutorial ↓</a>
+      <a href="#tools" class="btn-secondary">Lihat Tools</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">42+</div>
+        <div class="hero-stat-label">Tutorial</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">8</div>
+        <div class="hero-stat-label">Topik Utama</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">100%</div>
+        <div class="hero-stat-label">Gratis</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Terminal decoration -->
+  <div class="terminal">
+    <div class="terminal-bar">
+      <div class="dot dot-r"></div>
+      <div class="dot dot-y"></div>
+      <div class="dot dot-g"></div>
+      <span class="terminal-title">student@tkj-lab: ~</span>
+    </div>
+    <div class="terminal-body">
+      <div><span class="t-prompt">$ </span><span class="t-cmd">ping 192.168.1.1</span></div>
+      <div class="t-output">PING 192.168.1.1 (192.168.1.1) 56 bytes</div>
+      <div class="t-green">64 bytes from 192.168.1.1: icmp_seq=1 ttl=64</div>
+      <div class="t-green">64 bytes from 192.168.1.1: icmp_seq=2 ttl=64</div>
+      <div><br></div>
+      <div><span class="t-prompt">$ </span><span class="t-cmd">ip addr show eth0</span></div>
+      <div class="t-output">2: eth0: &lt;BROADCAST,MULTICAST,UP&gt;</div>
+      <div class="t-output">&nbsp;&nbsp;inet <span class="t-yellow">192.168.1.100/24</span> brd 192.168.1.255</div>
+      <div><br></div>
+      <div><span class="t-prompt">$ </span><span class="t-cmd">nmap -sV 192.168.1.0/24</span></div>
+      <div class="t-green">Starting Nmap 7.94...</div>
+      <div class="t-output"><span class="t-comment"># Scanning network...</span></div>
+      <div><span class="t-prompt">$ </span><span class="t-cursor"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Materi / Topics ── -->
+<section id="materi">
+  <div class="section-label">Materi Pembelajaran</div>
+  <h2 class="section-title">Pilih Topik<br>yang Ingin Dipelajari</h2>
+  <p class="section-desc">Setiap topik berisi modul teori, praktik langkah demi langkah, dan soal latihan.</p>
+
+  <div class="search-wrap">
+    <span class="search-icon">⌕</span>
+    <input id="search-input" type="text" placeholder="Cari tutorial, mis: subnetting, SSH, VLAN..." oninput="filterTopics(this.value)">
+  </div>
+
+  <div class="topics-grid" id="topics-grid">
+
+    <a class="topic-card net reveal" data-topic="networking" href="#tutorial-area" onclick="openTutorial('networking'); return false;">
+      <div class="topic-icon net">🌐</div>
+      <div class="topic-name">Dasar Jaringan Komputer</div>
+      <div class="topic-desc">OSI Layer, TCP/IP, topologi jaringan, pengkabelan, dan protokol komunikasi dasar.</div>
+      <div class="topic-tags">
+        <span class="tag">OSI Model</span>
+        <span class="tag">TCP/IP</span>
+        <span class="tag">Subnetting</span>
+        <span class="tag">DNS</span>
+      </div>
+      <div class="topic-meta">
+        <span class="topic-lessons">8 modul</span>
+        <span>Pemula</span>
+      </div>
+    </a>
+
+    <a class="topic-card net reveal" data-topic="cisco" href="#tutorial-area" onclick="openTutorial('cisco'); return false;">
+      <div class="topic-icon net">🔧</div>
+      <div class="topic-name">Konfigurasi Cisco</div>
+      <div class="topic-desc">Router & switch Cisco, VLAN, STP, routing statis & dinamis (OSPF, EIGRP, RIP).</div>
+      <div class="topic-tags">
+        <span class="tag">IOS CLI</span>
+        <span class="tag">VLAN</span>
+        <span class="tag">OSPF</span>
+        <span class="tag">Packet Tracer</span>
+      </div>
+      <div class="topic-meta">
+        <span class="topic-lessons">10 modul</span>
+        <span>Menengah</span>
+      </div>
+    </a>
+
+    <a class="topic-card sec reveal" data-topic="security" href="#tutorial-area" onclick="openTutorial('security'); return false;">
+      <div class="topic-icon sec">🛡️</div>
+      <div class="topic-name">Keamanan Jaringan</div>
+      <div class="topic-desc">Firewall, VPN, enkripsi, deteksi intrusi, dan dasar ethical hacking.</div>
+      <div class="topic-tags">
+        <span class="tag">Firewall</span>
+        <span class="tag">VPN</span>
+        <span class="tag">IDS/IPS</span>
+        <span class="tag">Kali Linux</span>
+      </div>
+      <div class="topic-meta">
+        <span class="topic-lessons">6 modul</span>
+        <span>Menengah</span>
+      </div>
+    </a>
+
+    <a class="topic-card sys reveal" data-topic="linux" href="#tutorial-area" onclick="openTutorial('linux'); return false;">
+      <div class="topic-icon sys">🐧</div>
+      <div class="topic-name">Linux Server</div>
+      <div class="topic-desc">Instalasi, administrasi, dan konfigurasi server Linux (Ubuntu/Debian/CentOS).</div>
+      <div class="topic-tags">
+        <span class="tag">Bash</span>
+        <span class="tag">Apache</span>
+        <span class="tag">Nginx</span>
+        <span class="tag">SSH</span>
+      </div>
+      <div class="topic-meta">
+        <span class="topic-lessons">9 modul</span>
+        <span>Menengah</span>
+      </div>
+    </a>
+
+    <a class="topic-card hw reveal" data-topic="hardware" href="#tutorial-area" onclick="openTutorial('hardware'); return false;">
+      <div class="topic-icon hw">💻</div>
+      <div class="topic-name">Perakitan & Hardware</div>
+      <div class="topic-desc">Komponen PC, perakitan, troubleshooting, dan pemeliharaan perangkat keras.</div>
+      <div class="topic-tags">
+        <span class="tag">Motherboard</span>
+        <span class="tag">BIOS</span>
+        <span class="tag">RAM/SSD</span>
+        <span class="tag">Troubleshoot</span>
+      </div>
+      <div class="topic-meta">
+        <span class="topic-lessons">5 modul</span>
+        <span>Pemula</span>
+      </div>
+    </a>
+
+    <a class="topic-card dev reveal" data-topic="mikrotik" href="#tutorial-area" onclick="openTutorial('mikrotik'); return false;">
+      <div class="topic-icon dev">📡</div>
+      <div class="topic-name">MikroTik RouterOS</div>
+      <div class="topic-desc">Konfigurasi MikroTik, bandwidth management, hotspot, dan WinBox.</div>
+      <div class="topic-tags">
+        <span class="tag">WinBox</span>
+        <span class="tag">Hotspot</span>
+        <span class="tag">QoS</span>
+        <span class="tag">PPPoE</span>
+      </div>
+      <div class="topic-meta">
+        <span class="topic-lessons">7 modul</span>
+        <span>Menengah</span>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- Tutorial Content Area -->
+  <div id="tutorial-area">
+    <div class="tutorial-header">
+      <h2 id="tutorial-title">Tutorial</h2>
+      <button class="tutorial-close" onclick="closeTutorial()">✕ Tutup</button>
+    </div>
+    <div class="tutorial-body">
+      <div class="tutorial-sidebar" id="tutorial-sidebar"></div>
+      <div class="tutorial-content" id="tutorial-content"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Progress ── -->
+<section id="progress-section">
+  <div class="section-label reveal">Progress Belajar</div>
+  <h2 class="section-title reveal">Pantau Kemajuan<br>Belajarmu</h2>
+  <p class="section-desc reveal">Klik topik untuk membaca tutorial. Progress tersimpan otomatis di browser.</p>
+
+  <div class="progress-grid" id="progress-grid"></div>
+</section>
+
+<!-- ── Tools ── -->
+<section id="tools">
+  <div class="section-label reveal">Software & Tools</div>
+  <h2 class="section-title reveal">Tools Wajib<br>untuk TKJ</h2>
+
+  <div class="tools-list">
+    <div class="tool-item reveal">
+      <div class="tool-logo">📦</div>
+      <div>
+        <div class="tool-name">Cisco Packet Tracer</div>
+        <div class="tool-desc">Simulasi jaringan Cisco. Ideal untuk belajar routing, switching, dan VLAN tanpa perangkat fisik.</div>
+        <span class="tool-badge free">Gratis untuk pelajar</span>
+      </div>
+    </div>
+    <div class="tool-item reveal">
+      <div class="tool-logo">🖥️</div>
+      <div>
+        <div class="tool-name">VirtualBox</div>
+        <div class="tool-desc">Virtual machine untuk menjalankan Linux, Windows Server, atau sistem operasi lain untuk lab praktik.</div>
+        <span class="tool-badge free">Open Source</span>
+      </div>
+    </div>
+    <div class="tool-item reveal">
+      <div class="tool-logo">🔍</div>
+      <div>
+        <div class="tool-name">Wireshark</div>
+        <div class="tool-desc">Packet analyzer untuk memonitor dan menganalisis lalu lintas jaringan secara real-time.</div>
+        <span class="tool-badge free">Gratis</span>
+      </div>
+    </div>
+    <div class="tool-item reveal">
+      <div class="tool-logo">🌐</div>
+      <div>
+        <div class="tool-name">WinBox (MikroTik)</div>
+        <div class="tool-desc">GUI untuk konfigurasi router MikroTik. Mudah digunakan untuk manajemen jaringan.</div>
+        <span class="tool-badge free">Gratis</span>
+      </div>
+    </div>
+    <div class="tool-item reveal">
+      <div class="tool-logo">🔒</div>
+      <div>
+        <div class="tool-name">Kali Linux</div>
+        <div class="tool-desc">Distro Linux untuk pentesting dan keamanan jaringan. Tersedia ratusan tools security.</div>
+        <span class="tool-badge free">Open Source</span>
+      </div>
+    </div>
+    <div class="tool-item reveal">
+      <div class="tool-logo">📡</div>
+      <div>
+        <div class="tool-name">GNS3</div>
+        <div class="tool-desc">Network emulator untuk simulasi jaringan kompleks dengan perangkat nyata secara virtual.</div>
+        <span class="tool-badge free">Gratis</span>
+      </div>
+    </div>
+    <div class="tool-item reveal">
+      <div class="tool-logo">💻</div>
+      <div>
+        <div class="tool-name">PuTTY</div>
+        <div class="tool-desc">SSH dan Telnet client untuk akses remote ke server Linux atau perangkat jaringan.</div>
+        <span class="tool-badge free">Gratis</span>
+      </div>
+    </div>
+    <div class="tool-item reveal">
+      <div class="tool-logo">📊</div>
+      <div>
+        <div class="tool-name">Nmap</div>
+        <div class="tool-desc">Network scanner untuk discovery host, port scanning, dan deteksi OS dan service.</div>
+        <span class="tool-badge free">Open Source</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="footer-brand">
+    <div class="footer-logo">TKJ/ACADEMY</div>
+    <p class="footer-tagline">Platform belajar Teknik Komputer & Jaringan. Dari teori hingga praktik nyata.</p>
+  </div>
+  <div class="footer-col">
+    <h4>Materi</h4>
+    <ul>
+      <li><a href="#">Dasar Jaringan</a></li>
+      <li><a href="#">Cisco IOS</a></li>
+      <li><a href="#">Linux Server</a></li>
+      <li><a href="#">Keamanan Jaringan</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Referensi</h4>
+    <ul>
+      <li><a href="#">Subnetting Calculator</a></li>
+      <li><a href="#">Cheat Sheet CLI</a></li>
+      <li><a href="#">Topologi Contoh</a></li>
+      <li><a href="#">Soal Latihan</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Info</h4>
+    <ul>
+      <li><a href="#">Tentang</a></li>
+      <li><a href="#">Kontribusi</a></li>
+      <li><a href="#">Lisensi</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span>© 2025 TKJ Academy — Untuk pelajar SMK TKJ Indonesia</span>
+  <span>Made with ♥ untuk kemajuan pendidikan TKJ</span>
+</div>
+
+<script>
+/* ── Tutorial Data ── */
+const tutorials = {
+  networking: {
+    title: "Dasar Jaringan Komputer",
+    lessons: [
+      { num: "01", title: "Pengenalan Jaringan" },
+      { num: "02", title: "Model OSI 7 Layer" },
+      { num: "03", title: "TCP/IP & Protokol" },
+      { num: "04", title: "IP Address & Subnetting" },
+      { num: "05", title: "Topologi Jaringan" },
+      { num: "06", title: "Perangkat Jaringan" },
+      { num: "07", title: "DNS & DHCP" },
+      { num: "08", title: "Troubleshooting Dasar" },
+    ],
+    content: [
+      {
+        title: "Pengenalan Jaringan Komputer",
+        body: `
+          <p>Jaringan komputer adalah kumpulan dua atau lebih perangkat komputer yang saling terhubung untuk berbagi data, sumber daya, dan berkomunikasi satu sama lain.</p>
+          <h4>Jenis-jenis Jaringan</h4>
+          <p><strong>LAN (Local Area Network)</strong> — Jaringan dalam area terbatas seperti satu gedung atau kantor. Kecepatan tinggi (100 Mbps – 10 Gbps).</p>
+          <p><strong>WAN (Wide Area Network)</strong> — Jaringan yang mencakup area geografis luas, misalnya antar kota atau negara. Internet adalah contoh WAN terbesar.</p>
+          <p><strong>MAN (Metropolitan Area Network)</strong> — Jaringan yang mencakup satu kota, biasanya digunakan oleh ISP atau pemerintah daerah.</p>
+          <div class="info-box">💡 Tip: Untuk memulai praktik jaringan, gunakan Cisco Packet Tracer yang bisa didownload gratis dengan akun Cisco Networking Academy.</div>
+          <h4>Cara Kerja Jaringan</h4>
+          <p>Data dikirim dalam bentuk <strong>paket</strong> (packet). Setiap paket berisi alamat pengirim, alamat tujuan, dan data. Router bertugas memforward paket ke tujuan yang benar.</p>
+          <div class="code-block">
+            <div class="code-header"><span class="code-lang">CMD — Cek koneksi jaringan</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-body" data-code="ping 8.8.8.8\nipconfig /all\ntracert google.com"><span class="t-prompt">C:\\> </span><span class="fn">ping</span> <span class="num">8.8.8.8</span>
+<span class="cmt"># Test koneksi ke DNS Google</span>
+
+<span class="t-prompt">C:\\> </span><span class="fn">ipconfig</span> /all
+<span class="cmt"># Tampilkan semua info jaringan</span>
+
+<span class="t-prompt">C:\\> </span><span class="fn">tracert</span> google.com
+<span class="cmt"># Lacak rute paket ke tujuan</span></div>
+          </div>
+          <div class="quiz-box">
+            <h4>🧪 Kuis Singkat</h4>
+            <p style="font-family:var(--mono);font-size:13px;color:var(--text2);margin-bottom:16px">Jenis jaringan apa yang menghubungkan dua gedung di satu kota?</p>
+            <div class="quiz-option" onclick="checkAnswer(this, false)"><span>A.</span> LAN</div>
+            <div class="quiz-option" onclick="checkAnswer(this, false)"><span>B.</span> WAN</div>
+            <div class="quiz-option" onclick="checkAnswer(this, true)"><span>C.</span> MAN</div>
+            <div class="quiz-option" onclick="checkAnswer(this, false)"><span>D.</span> PAN</div>
+          </div>
+        `
+      },
+      {
+        title: "Model OSI 7 Layer",
+        body: `
+          <p>Model OSI (Open Systems Interconnection) adalah kerangka konseptual yang mendefinisikan bagaimana sistem komunikasi jaringan berinteraksi. Terdiri dari 7 layer.</p>
+          <div class="code-block">
+            <div class="code-header"><span class="code-lang">OSI Layer — dari atas ke bawah</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-body"><span class="num">7</span>. <span class="fn">Application</span>   <span class="cmt">— HTTP, FTP, DNS, SMTP</span>
+<span class="num">6</span>. <span class="fn">Presentation</span> <span class="cmt">— Enkripsi, Kompresi (SSL/TLS)</span>
+<span class="num">5</span>. <span class="fn">Session</span>      <span class="cmt">— Manajemen sesi komunikasi</span>
+<span class="num">4</span>. <span class="fn">Transport</span>    <span class="cmt">— TCP, UDP (segmentasi data)</span>
+<span class="num">3</span>. <span class="fn">Network</span>      <span class="cmt">— IP, Router (pengalamatan)</span>
+<span class="num">2</span>. <span class="fn">Data Link</span>    <span class="cmt">— Ethernet, Switch (MAC)</span>
+<span class="num">1</span>. <span class="fn">Physical</span>     <span class="cmt">— Kabel, sinyal, bit</span></div>
+          </div>
+          <div class="info-box">📝 Hafalan: <strong>"All People Seem To Need Data Processing"</strong> (Application → Physical)</div>
+          <h4>Perbedaan TCP vs UDP</h4>
+          <p><strong>TCP</strong> — Connection-oriented, reliable, ada acknowledgment. Digunakan untuk HTTP, FTP, SSH. Lebih lambat tapi aman.</p>
+          <p><strong>UDP</strong> — Connectionless, faster, tidak ada jaminan delivery. Digunakan untuk streaming video, DNS, VoIP.</p>
+          <div class="quiz-box">
+            <h4>🧪 Kuis Singkat</h4>
+            <p style="font-family:var(--mono);font-size:13px;color:var(--text2);margin-bottom:16px">Protocol HTTP berada di layer OSI ke berapa?</p>
+            <div class="quiz-option" onclick="checkAnswer(this, false)"><span>A.</span> Layer 4 - Transport</div>
+            <div class="quiz-option" onclick="checkAnswer(this, true)"><span>B.</span> Layer 7 - Application</div>
+            <div class="quiz-option" onclick="checkAnswer(this, false)"><span>C.</span> Layer 3 - Network</div>
+            <div class="quiz-option" onclick="checkAnswer(this, false)"><span>D.</span> Layer 2 - Data Link</div>
+          </div>
+        `
+      },
+      {
+        title: "TCP/IP & Protokol",
+        body: `
+          <p>TCP/IP adalah suite protokol yang menjadi dasar internet. Berbeda dengan OSI yang memiliki 7 layer, TCP/IP hanya memiliki 4 layer.</p>
+          <div class="code-block">
+            <div class="code-header"><span class="code-lang">TCP/IP Model</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-body"><span class="fn">Application</span>   <span class="cmt">→ HTTP, HTTPS, FTP, SSH, DNS, SMTP</span>
+<span class="fn">Transport</span>    <span class="cmt">→ TCP (port 80, 443) | UDP (port 53)</span>
+<span class="fn">Internet</span>     <span class="cmt">→ IP, ICMP, ARP, IGMP</span>
+<span class="fn">Network Acc.</span> <span class="cmt">→ Ethernet, Wi-Fi (802.11)</span></div>
+          </div>
+          <h4>Port-port Penting yang Harus Dihapal</h4>
+          <div class="code-block">
+            <div class="code-header"><span class="code-lang">Port Numbers</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-body"><span class="num">20/21</span>  FTP    <span class="num">22</span>  SSH    <span class="num">23</span>  Telnet
+<span class="num">25</span>    SMTP   <span class="num">53</span>  DNS    <span class="num">67/68</span> DHCP
+<span class="num">80</span>    HTTP   <span class="num">110</span> POP3   <span class="num">143</span>  IMAP
+<span class="num">443</span>   HTTPS  <span class="num">3306</span> MySQL  <span class="num">3389</span> RDP</div>
+          </div>
+          <div class="info-box warn">⚠️ Telnet (port 23) tidak terenkripsi. Gunakan SSH (port 22) untuk akses remote yang aman.</div>
+        `
+      },
+      {
+        title: "IP Address & Subnetting",
+        body: `
+          <p>IP Address adalah alamat unik yang diberikan ke setiap perangkat dalam jaringan. Ada dua versi: IPv4 (32-bit) dan IPv6 (128-bit).</p>
+          <h4>Kelas IP Address IPv4</h4>
+          <div class="code-block">
+            <div class="code-header"><span class="code-lang">IP Class</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-body"><span class="kw">Class A</span>: <span class="num">1.0.0.0</span> - <span class="num">126.255.255.255</span>  /8   <span class="cmt">(16 juta host)</span>
+<span class="kw">Class B</span>: <span class="num">128.0.0.0</span> - <span class="num">191.255.255.255</span> /16  <span class="cmt">(65k host)</span>
+<span class="kw">Class C</span>: <span class="num">192.0.0.0</span> - <span class="num">223.255.255.255</span> /24  <span class="cmt">(254 host)</span>
+
+<span class="cmt"># Private IP (tidak bisa diakses internet)</span>
+<span class="fn">A</span>: 10.0.0.0/8
+<span class="fn">B</span>: 172.16.0.0/12
+<span class="fn">C</span>: 192.168.0.0/16</div>
+          </div>
+          <h4>Contoh Subnetting /24</h4>
+          <div class="code-block">
+            <div class="code-header"><span class="code-lang">Subnetting</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-body"><span class="cmt"># Network: 192.168.1.0/24</span>
+Network Address : <span class="num">192.168.1.0</span>
+Subnet Mask     : <span class="num">255.255.255.0</span>
+First Host      : <span class="num">192.168.1.1</span>
+Last Host       : <span class="num">192.168.1.254</span>
+Broadcast       : <span class="num">192.168.1.255</span>
+Total Host      : <span class="fn">254</span> perangkat</div>
+          </div>
+        `
+      },
+    ]
+  },
+  cisco: {
+    title: "Konfigurasi Cisco",
+    lessons: [
+      { num: "01", title: "Pengenalan Cisco IOS" },
+      { num: "02", title: "Mode CLI Cisco" },
+      { num: "03", title: "Konfigurasi Router Dasar" },
+      { num: "04", title: "Konfigurasi Switch & VLAN" },
+      { num: "05", title: "Static Routing" },
+      { num: "06", title: "Dynamic Routing (OSPF)" },
+      { num: "07", title: "DHCP di Cisco" },
+      { num: "08", title: "ACL (Access Control List)" },
+      { num: "09", title: "NAT/PAT" },
+      { num: "10", title: "Troubleshooting Cisco" },
+    ],
+    content: [
+      {
+        title: "Pengenalan Cisco IOS",
+        body: `
+          <p>Cisco IOS (Internetwork Operating System) adalah sistem operasi yang berjalan di perangkat jaringan Cisco seperti router dan switch.</p>
+          <h4>Mode-mode CLI Cisco</h4>
+          <div class="code-block">
+            <div class="code-header"><span class="code-lang">Cisco IOS Modes</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-body"><span class="cmt"># 1. User EXEC Mode (tanda >)</span>
+Router<span class="kw">></span>
+
+<span class="cmt"># 2. Privileged EXEC Mode (tanda #)</span>
+Router<span class="kw">></span> <span class="fn">enable</span>
+Router<span class="kw">#</span>
+
+<span class="cmt"># 3. Global Configuration Mode</span>
+Router<span class="kw">#</span> <span class="fn">configure terminal</span>
+Router(<span class="var">config</span>)<span class="kw">#</span>
+
+<span class="cmt"># 4. Interface Configuration Mode</span>
+Router(<span class="var">config</span>)<span class="kw">#</span> <span class="fn">interface</span> GigabitEthernet0/0
+Router(<span class="var">config-if</span>)<span class="kw">#</span></div>
+          </div>
+          <h4>Perintah Dasar yang Wajib Dihapal</h4>
+          <div class="code-block">
+            <div class="code-header"><span class="code-lang">Cisco IOS Basic Commands</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-body">Router<span class="kw">#</span> <span class="fn">show running-config</span>    <span class="cmt">-- lihat konfigurasi aktif</span>
+Router<span class="kw">#</span> <span class="fn">show ip interface brief</span> <span class="cmt">-- status semua interface</span>
+Router<span class="kw">#</span> <span class="fn">show ip route</span>          <span class="cmt">-- lihat routing table</span>
+Router<span class="kw">#</span> <span class="fn">copy running startup</span>   <span class="cmt">-- simpan konfigurasi</span>
+Router<span class="kw">#</span> <span class="fn">erase startup-config</span>   <span class="cmt">-- hapus konfigurasi</span>
+Router<span class="kw">#</span> <span class="fn">reload</span>                 <span class="cmt">-- restart perangkat</span></div>
+          </div>
+          <div class="info-box">💡 Gunakan <strong>?</strong> setelah perintah untuk melihat opsi yang tersedia. Contoh: <code>show ?</code></div>
+        `
+      },
+      {
+        title: "Mode CLI Cisco",
+        body: `
+          <p>Memahami hierarki mode CLI Cisco sangat penting agar tidak salah tempat mengetikkan perintah.</p>
+          <h4>Konfigurasi Hostname & Password</h4>
+          <div class="code-block">
+            <div class="code-header"><span class="code-lang">Basic Security Config</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-body">Router(<span class="var">config</span>)<span class="kw">#</span> <span class="fn">hostname</span> <span class="str">R1-SMK</span>
+
+<span class="cmt">! Set enable password (terenkripsi)</span>
+R1-SMK(<span class="var">config</span>)<span class="kw">#</span> <span class="fn">enable secret</span> <span class="str">cisco123</span>
+
+<span class="cmt">! Password untuk akses console</span>
+R1-SMK(<span class="var">config</span>)<span class="kw">#</span> <span class="fn">line console</span> <span class="num">0</span>
+R1-SMK(<span class="var">config-line</span>)<span class="kw">#</span> <span class="fn">password</span> <span class="str">console123</span>
+R1-SMK(<span class="var">config-line</span>)<span class="kw">#</span> <span class="fn">login</span>
+
+<span class="cmt">! Enkripsi semua password plaintext</span>
+R1-SMK(<span class="var">config</span>)<span class="kw">#</span> <span class="fn">service password-encryption</span>
+
+<span class="cmt">! Tampilkan banner login</span>
+R1-SMK(<span class="var">config</span>)<span class="kw">#</span> <span class="fn">banner motd</span> # Authorized Access Only #</div>
+          </div>
+        `
+      },
+      {
+        title: "Konfigurasi Router Dasar",
+        body: `
+          <p>Konfigurasi interface router adalah langkah dasar agar router bisa berkomunikasi di jaringan.</p>
+          <div class="code-block">
+            <div class="code-header"><span class="code-lang">Interface Configuration</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-body">R1(<span class="var">config</span>)<span class="kw">#</span> <span class="fn">interface</span> GigabitEthernet0/0
+R1(<span class="var">config-if</span>)<span class="kw">#</span> <span class="fn">ip address</span> <span class="num">192.168.1.1 255.255.255.0</span>
+R1(<span class="var">config-if</span>)<span class="kw">#</span> <span class="fn">no shutdown</span>
+R1(<span class="var">config-if</span>)<span class="kw">#</span> <span class="fn">description</span> <span class="str">LAN-Interface</span>
+R1(<span class="var">config-if</span>)<span class="kw">#</span> <span class="fn">exit</span>
+
+<span class="cmt">! Verifikasi</span>
+R1<span class="kw">#</span> <span class="fn">show interface</span> GigabitEthernet0/0
+R1<span class="kw">#</span> <span class="fn">show ip interface brief</span></div>
+          </div>
+          <div class="info-box warn">⚠️ Interface Cisco default dalam kondisi <strong>administratively down</strong>. Perintah <code>no shutdown</code> wajib dijalankan untuk mengaktifkannya.</div>
+        `
+      }
+    ]
+  },
+  linux: {
+    title: "Linux Server",
+    lessons: [
+      { num: "01", title: "Instalasi Ubuntu Server" },
+      { num: "02", title: "Perintah Dasar Linux" },
+      { num: "03", title: "Manajemen File & Direktori" },
+      { num: "04", title: "User & Permission" },
+      { num: "05", title: "Konfigurasi SSH" },
+      { num: "06", title: "Web Server (Apache/Nginx)" },
+      { num: "07", title: "Firewall (UFW/iptables)" },
+      { num: "08", title: "Cron Job & Otomasi" },
+      { num: "09", title: "Monitoring Server" },
+    ],
+    content: [
+      {
+        title: "Instalasi Ubuntu Server",
+        body: `
+          <p>Ubuntu Server adalah pilihan populer untuk lab praktik TKJ karena ringan, stabil, dan banyak dokumentasinya.</p>
+          <h4>Persiapan Instalasi</h4>
+          <p>Download Ubuntu Server LTS dari ubuntu.com. Buat bootable USB dengan Rufus (Windows) atau dd (Linux). Minimal spesifikasi: 2GB RAM, 20GB storage.</p>
+          <h4>Konfigurasi Awal Setelah Instalasi</h4>
+          <div class="code-block">
+            <div class="code-header"><span class="code-lang">bash — Post-install Setup</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-body"><span class="cmt"># Update sistem</span>
+<span class="fn">sudo</span> apt update && <span class="fn">sudo</span> apt upgrade -y
+
+<span class="cmt"># Install tools dasar</span>
+<span class="fn">sudo</span> apt install -y <span class="str">net-tools curl wget vim git</span>
+
+<span class="cmt"># Cek IP address</span>
+<span class="fn">ip</span> addr show
+<span class="fn">hostname</span> -I
+
+<span class="cmt"># Set hostname</span>
+<span class="fn">sudo</span> hostnamectl set-hostname <span class="str">server-tkj</span></div>
+          </div>
+          <div class="info-box">💡 Untuk praktik tanpa PC server fisik, install Ubuntu Server di VirtualBox. Set network adapter ke "Bridged" agar bisa diakses dari jaringan lokal.</div>
+        `
+      },
+      {
+        title: "Perintah Dasar Linux",
+        body: `
+          <p>Menguasai perintah dasar Linux adalah fondasi untuk administrasi server dan pengelolaan jaringan.</p>
+          <div class="code-block">
+            <div class="code-header"><span class="code-lang">bash — Essential Commands</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-body"><span class="cmt"># Navigasi direktori</span>
+<span class="fn">pwd</span>           <span class="cmt"># Print Working Directory</span>
+<span class="fn">ls</span> -la        <span class="cmt"># List files (detail + hidden)</span>
+<span class="fn">cd</span> /etc       <span class="cmt"># Pindah ke direktori /etc</span>
+<span class="fn">cd</span> ~          <span class="cmt"># Kembali ke home</span>
+
+<span class="cmt"># Manajemen file</span>
+<span class="fn">cp</span> file1 file2    <span class="cmt"># Copy file</span>
+<span class="fn">mv</span> file1 file2    <span class="cmt"># Move/rename file</span>
+<span class="fn">rm</span> -rf folder/    <span class="cmt"># Hapus folder (hati-hati!)</span>
+<span class="fn">cat</span> /etc/passwd   <span class="cmt"># Tampilkan isi file</span>
+
+<span class="cmt"># Proses & sistem</span>
+<span class="fn">top</span>           <span class="cmt"># Monitor proses real-time</span>
+<span class="fn">ps</span> aux        <span class="cmt"># List semua proses</span>
+<span class="fn">kill</span> -9 <span class="num">1234</span>  <span class="cmt"># Kill proses berdasarkan PID</span>
+<span class="fn">df</span> -h         <span class="cmt"># Disk usage</span>
+<span class="fn">free</span> -m       <span class="cmt"># Memory usage</span></div>
+          </div>
+        `
+      },
+      {
+        title: "Konfigurasi SSH",
+        body: `
+          <p>SSH (Secure Shell) memungkinkan akses remote yang terenkripsi ke server Linux. Ini adalah skill yang wajib dikuasai seorang admin jaringan.</p>
+          <div class="code-block">
+            <div class="code-header"><span class="code-lang">bash — SSH Setup</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-body"><span class="cmt"># Install SSH server</span>
+<span class="fn">sudo</span> apt install -y openssh-server
+<span class="fn">sudo</span> systemctl enable ssh
+<span class="fn">sudo</span> systemctl start ssh
+
+<span class="cmt"># Koneksi dari client</span>
+<span class="fn">ssh</span> <span class="var">username</span>@<span class="num">192.168.1.100</span>
+<span class="fn">ssh</span> -p <span class="num">2222</span> <span class="var">user</span>@<span class="num">192.168.1.100</span>
+
+<span class="cmt"># Hardening SSH (/etc/ssh/sshd_config)</span>
+<span class="kw">Port</span> <span class="num">2222</span>               <span class="cmt"># Ganti port default</span>
+<span class="kw">PermitRootLogin</span> <span class="str">no</span>     <span class="cmt"># Larang root login</span>
+<span class="kw">PasswordAuthentication</span> <span class="str">no</span>  <span class="cmt"># Wajib key-based</span>
+<span class="kw">MaxAuthTries</span> <span class="num">3</span>
+
+<span class="cmt"># Restart SSH setelah perubahan</span>
+<span class="fn">sudo</span> systemctl restart ssh</div>
+          </div>
+          <div class="info-box danger">🚨 Jangan pernah ubah port SSH sebelum membuka port baru di firewall! Kamu bisa terkunci dari server.</div>
+        `
+      }
+    ]
+  },
+  security: {
+    title: "Keamanan Jaringan",
+    lessons: [
+      { num: "01", title: "Konsep Keamanan Jaringan" },
+      { num: "02", title: "Firewall & Filtering" },
+      { num: "03", title: "VPN & Enkripsi" },
+      { num: "04", title: "IDS & IPS" },
+      { num: "05", title: "Ethical Hacking Dasar" },
+      { num: "06", title: "Incident Response" },
+    ],
+    content: [
+      {
+        title: "Konsep Keamanan Jaringan",
+        body: `
+          <p>Keamanan jaringan adalah praktik melindungi jaringan komputer dari ancaman, serangan, dan akses tidak sah.</p>
+          <h4>Segitiga CIA (CIA Triad)</h4>
+          <div class="code-block">
+            <div class="code-header"><span class="code-lang">CIA Triad</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-body"><span class="fn">Confidentiality</span> <span class="cmt">— Data hanya bisa diakses yang berwenang</span>
+<span class="fn">Integrity</span>       <span class="cmt">— Data tidak diubah tanpa izin</span>
+<span class="fn">Availability</span>    <span class="cmt">— Sistem selalu tersedia saat dibutuhkan</span></div>
+          </div>
+          <h4>Jenis-jenis Serangan Umum</h4>
+          <p><strong>DoS/DDoS</strong> — Membanjiri server dengan traffic sehingga tidak bisa melayani pengguna normal.</p>
+          <p><strong>Man-in-the-Middle (MitM)</strong> — Penyerang menyusup di antara komunikasi dua pihak.</p>
+          <p><strong>Phishing</strong> — Penipuan untuk mencuri kredensial lewat halaman palsu.</p>
+          <p><strong>SQL Injection</strong> — Memasukkan kode SQL berbahaya ke form input untuk mengakses database.</p>
+          <div class="info-box">💡 Untuk praktik ethical hacking secara legal, gunakan platform seperti HackTheBox, TryHackMe, atau buat lab sendiri dengan VirtualBox.</div>
+        `
+      },
+      {
+        title: "Firewall & Filtering",
+        body: `
+          <p>Firewall adalah sistem keamanan yang mengontrol lalu lintas jaringan berdasarkan aturan yang telah ditetapkan.</p>
+          <div class="code-block">
+            <div class="code-header"><span class="code-lang">UFW — Ubuntu Firewall</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-body"><span class="cmt"># Aktifkan UFW</span>
+<span class="fn">sudo</span> ufw enable
+<span class="fn">sudo</span> ufw status verbose
+
+<span class="cmt"># Allow/deny port</span>
+<span class="fn">sudo</span> ufw allow <span class="num">22</span>/tcp     <span class="cmt"># Allow SSH</span>
+<span class="fn">sudo</span> ufw allow <span class="num">80</span>/tcp     <span class="cmt"># Allow HTTP</span>
+<span class="fn">sudo</span> ufw allow <span class="num">443</span>/tcp    <span class="cmt"># Allow HTTPS</span>
+<span class="fn">sudo</span> ufw deny <span class="num">23</span>/tcp      <span class="cmt"># Block Telnet</span>
+
+<span class="cmt"># Block IP tertentu</span>
+<span class="fn">sudo</span> ufw deny from <span class="num">192.168.1.50</span>
+
+<span class="cmt"># Default policy</span>
+<span class="fn">sudo</span> ufw default deny incoming
+<span class="fn">sudo</span> ufw default allow outgoing</div>
+          </div>
+        `
+      }
+    ]
+  },
+  hardware: {
+    title: "Perakitan & Hardware",
+    lessons: [
+      { num: "01", title: "Komponen PC" },
+      { num: "02", title: "Proses Perakitan" },
+      { num: "03", title: "Konfigurasi BIOS/UEFI" },
+      { num: "04", title: "Instalasi OS" },
+      { num: "05", title: "Troubleshooting Hardware" },
+    ],
+    content: [
+      {
+        title: "Komponen PC dan Fungsinya",
+        body: `
+          <p>Memahami komponen PC adalah dasar dari jurusan TKJ. Setiap komponen memiliki fungsi spesifik dalam sistem komputer.</p>
+          <div class="code-block">
+            <div class="code-header"><span class="code-lang">Komponen Utama PC</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-body"><span class="fn">CPU</span>        <span class="cmt">— Processor, otak komputer (Intel/AMD)</span>
+<span class="fn">Motherboard</span> <span class="cmt">— Papan induk, menghubungkan semua komponen</span>
+<span class="fn">RAM</span>        <span class="cmt">— Memori sementara saat proses berjalan</span>
+<span class="fn">Storage</span>    <span class="cmt">— HDD/SSD untuk penyimpanan data</span>
+<span class="fn">PSU</span>        <span class="cmt">— Power Supply Unit, sumber daya listrik</span>
+<span class="fn">GPU</span>        <span class="cmt">— Kartu grafis (opsional untuk server)</span>
+<span class="fn">NIC</span>        <span class="cmt">— Network Interface Card, koneksi jaringan</span></div>
+          </div>
+          <h4>Slot & Konektor Penting</h4>
+          <p><strong>PCIe x16</strong> — Slot untuk GPU. <strong>PCIe x1</strong> — Slot untuk NIC, sound card. <strong>M.2</strong> — Slot SSD NVMe modern. <strong>DIMM</strong> — Slot RAM.</p>
+          <div class="info-box warn">⚠️ Selalu gunakan gelang antistatis (antistatic wristband) saat merakit untuk menghindari kerusakan komponen akibat listrik statis.</div>
+        `
+      }
+    ]
+  },
+  mikrotik: {
+    title: "MikroTik RouterOS",
+    lessons: [
+      { num: "01", title: "Pengenalan MikroTik" },
+      { num: "02", title: "Akses via WinBox" },
+      { num: "03", title: "Konfigurasi IP & Interface" },
+      { num: "04", title: "DHCP Server" },
+      { num: "05", title: "Firewall MikroTik" },
+      { num: "06", title: "Hotspot & Manajemen User" },
+      { num: "07", title: "Bandwidth Management (QoS)" },
+    ],
+    content: [
+      {
+        title: "Pengenalan MikroTik RouterOS",
+        body: `
+          <p>MikroTik RouterOS adalah sistem operasi jaringan berbasis Linux yang banyak digunakan di Indonesia untuk router SOHO hingga enterprise kecil.</p>
+          <h4>Cara Akses MikroTik</h4>
+          <div class="code-block">
+            <div class="code-header"><span class="code-lang">Akses MikroTik</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-body"><span class="cmt"># Via WinBox (Direkomendasikan)</span>
+<span class="fn">Download</span> WinBox dari: mikrotik.com/download
+IP Default : <span class="num">192.168.88.1</span>
+User       : <span class="str">admin</span>
+Password   : <span class="cmt">(kosong — langsung enter)</span>
+
+<span class="cmt"># Via SSH</span>
+<span class="fn">ssh</span> admin@<span class="num">192.168.88.1</span>
+
+<span class="cmt"># Via Web Browser</span>
+http://<span class="num">192.168.88.1</span>  <span class="cmt"># WebFig</span></div>
+          </div>
+          <h4>Perintah Dasar MikroTik CLI</h4>
+          <div class="code-block">
+            <div class="code-header"><span class="code-lang">RouterOS CLI</span><button class="code-copy" onclick="copyCode(this)">Copy</button></div>
+            <div class="code-body"><span class="cmt"># Lihat IP address</span>
+[admin@MikroTik] <span class="kw">></span> <span class="fn">ip address print</span>
+
+<span class="cmt"># Set IP ke interface ether1</span>
+[admin@MikroTik] <span class="kw">></span> <span class="fn">ip address add</span> \
+  address=<span class="num">192.168.1.1/24</span> interface=<span class="str">ether1</span>
+
+<span class="cmt"># Lihat routing table</span>
+[admin@MikroTik] <span class="kw">></span> <span class="fn">ip route print</span>
+
+<span class="cmt"># Set default gateway</span>
+[admin@MikroTik] <span class="kw">></span> <span class="fn">ip route add</span> \
+  gateway=<span class="num">192.168.0.1</span></div>
+          </div>
+          <div class="info-box">💡 MikroTik CHR (Cloud Hosted Router) bisa dijalankan di VirtualBox secara gratis untuk praktik tanpa hardware fisik.</div>
+        `
+      }
+    ]
+  }
+};
+
+/* ── State ── */
+let currentTopic = null;
+let currentLesson = 0;
+const progress = JSON.parse(localStorage.getItem('tkj-progress') || '{}');
+
+/* ── Open Tutorial ── */
+function openTutorial(topic) {
+  currentTopic = topic;
+  currentLesson = 0;
+  const data = tutorials[topic];
+  document.getElementById('tutorial-title').textContent = data.title;
+
+  // Sidebar
+  const sb = document.getElementById('tutorial-sidebar');
+  sb.innerHTML = `<div class="sidebar-label">Modul</div>` +
+    data.lessons.map((l, i) => `
+      <div class="sidebar-item ${i === 0 ? 'active' : ''}" onclick="switchLesson(${i})" id="sb-${i}">
+        <span class="num">${l.num}</span>
+        <span>${l.title}</span>
+      </div>
+    `).join('');
+
+  renderLesson(0);
+
+  const area = document.getElementById('tutorial-area');
+  area.style.display = 'block';
+  setTimeout(() => area.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+
+  // Mark topic opened
+  if (!progress[topic]) progress[topic] = { opened: 0, total: data.lessons.length };
+  progress[topic].opened = Math.max(progress[topic].opened, 1);
+  localStorage.setItem('tkj-progress', JSON.stringify(progress));
+  updateProgressGrid();
+}
+
+function switchLesson(i) {
+  const data = tutorials[currentTopic];
+  currentLesson = i;
+  document.querySelectorAll('.sidebar-item').forEach((el, idx) => {
+    el.classList.toggle('active', idx === i);
+  });
+  renderLesson(i);
+
+  if (!progress[currentTopic]) progress[currentTopic] = { opened: 0, total: data.lessons.length };
+  progress[currentTopic].opened = Math.max(progress[currentTopic].opened, i + 1);
+  localStorage.setItem('tkj-progress', JSON.stringify(progress));
+  updateProgressGrid();
+}
+
+function renderLesson(i) {
+  const data = tutorials[currentTopic];
+  const lesson = data.content[i] || {
+    title: data.lessons[i].title,
+    body: `<p>Modul <strong>${data.lessons[i].title}</strong> sedang dalam pengembangan. Segera hadir! 🚧</p>
+           <div class="info-box warn">📌 Konten modul ini akan ditambahkan. Coba modul sebelumnya terlebih dahulu.</div>`
+  };
+
+  const total = data.lessons.length;
+  const prevBtn = i > 0 ? `<button class="btn-secondary" onclick="switchLesson(${i - 1})">← Sebelumnya</button>` : `<span></span>`;
+  const nextBtn = i < total - 1 ? `<button class="btn-primary" onclick="switchLesson(${i + 1})">Selanjutnya →</button>` : `<button class="btn-primary" onclick="closeTutorial()">✓ Selesai</button>`;
+
+  document.getElementById('tutorial-content').innerHTML = `
+    <h3>${lesson.title}</h3>
+    ${lesson.body}
+    <div class="tutorial-nav">${prevBtn}${nextBtn}</div>
+  `;
+}
+
+function closeTutorial() {
+  document.getElementById('tutorial-area').style.display = 'none';
+  currentTopic = null;
+}
+
+/* ── Quiz ── */
+function checkAnswer(el, correct) {
+  const box = el.closest('.quiz-box');
+  box.querySelectorAll('.quiz-option').forEach(o => {
+    o.style.pointerEvents = 'none';
+  });
+  if (correct) {
+    el.classList.add('correct');
+    el.textContent = '✓ ' + el.textContent + ' — Benar!';
+  } else {
+    el.classList.add('wrong');
+    // Highlight correct
+    box.querySelectorAll('.quiz-option').forEach(o => {
+      const fn = o.getAttribute('onclick');
+      if (fn && fn.includes('true')) o.classList.add('correct');
+    });
+  }
+}
+
+/* ── Code Copy ── */
+function copyCode(btn) {
+  const body = btn.closest('.code-block').querySelector('.code-body');
+  const text = body.getAttribute('data-code') || body.innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '✓ Copied!';
+    setTimeout(() => btn.textContent = 'Copy', 2000);
+  });
+}
+
+/* ── Progress Grid ── */
+function updateProgressGrid() {
+  const grid = document.getElementById('progress-grid');
+  const topicList = Object.keys(tutorials);
+  grid.innerHTML = topicList.map(key => {
+    const data = tutorials[key];
+    const p = progress[key] || { opened: 0, total: data.lessons.length };
+    const pct = Math.round((p.opened / p.total) * 100);
+    const colors = { networking: '#00e5ff', cisco: '#00e5ff', linux: '#10b981', security: '#ef4444', hardware: '#f59e0b', mikrotik: '#7c3aed' };
+    return `
+      <div class="progress-card">
+        <div class="progress-pct">${pct}%</div>
+        <div class="progress-title">${data.title}</div>
+        <div class="progress-sub">${p.opened} / ${p.total} modul dibuka</div>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" style="width:${pct}%;background:${colors[key]}"></div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+/* ── Search ── */
+function filterTopics(val) {
+  const q = val.toLowerCase();
+  document.querySelectorAll('.topic-card').forEach(card => {
+    const text = card.textContent.toLowerCase();
+    card.style.display = text.includes(q) ? '' : 'none';
+  });
+}
+
+/* ── Scroll Reveal ── */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+/* ── Init ── */
+updateProgressGrid();
+</script>
+</body>
+</html>
